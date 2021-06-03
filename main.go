@@ -150,9 +150,9 @@ func main() {
 	MxSuffix := GetCrmSuffixData(crmdb)
 	// init database pool
 	var wg sync.WaitGroup
-	consumerCount := 10
+	consumerCount := 50
 	wg.Add(consumerCount)
-	var ch = make(chan Customer, consumerCount*10)
+	var ch = make(chan Customer, consumerCount*2)
 	go produce(ch, &wg)
 	for i := 0; i < consumerCount; i++ {
 		go consumer(ch, &wg, MxSuffix, i+1)
